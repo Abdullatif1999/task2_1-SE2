@@ -8,22 +8,29 @@
 </head>
 <body>
     <h1>قائمة المهام اليومية</h1>
-    <ul>
+     <ul>
         @foreach (var task in Model)
         {
-            <li>
+            <li style="display:flex; justify-content:space-between; width:900px; ">
+               
                 @if(task.IsComplete)
                 {
                     <s>@task.Title</s>
                 }
                 else
                 {
+                    <div style = "display:flex; justify-content:space-between; width:400px;">
                     @task.Title
-                    <form method="post" asp-action="CompleteTask" style="display:inline;">
+                    <form method="post" asp-action="CompleteTask">
                         <input type="hidden" name="id" value="@task.Id" />
                         <button type="submit">اكتملت</button>
                     </form>
-
+                    </div>
+                    <form method="post" asp-action="EditTask">
+                            <input type="hidden" name="id" value="@task.Id" /> 
+                            <input type="text" name="newTitle" placeholder="تعديل اسم المهمة" />
+                            <button type="submit">تعديل</button>
+                    </form>
                 }
             </li>
         }
